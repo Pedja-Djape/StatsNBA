@@ -131,22 +131,22 @@ class SPSC extends Component {
   getShotchart(player_name) {
     if ((this.state.players).includes(player_name) === false){
       axios.get(`/api/player-sc/${player_name}`).then((response) => {
-        const image = 'data:image/jpeg;base64,' + response.data.shotChart
-        console.log(image)
-        this.setState({soloSC: image})
+        const soloSC = 'data:image/jpeg;base64,' + response.data.soloSC
+        const playerLeagueSC = 'data:image/jpeg;base64,' + response.data.playerLeagueSC
+        // console.log(image)
+        this.setState({soloSC: soloSC,leagueComp: playerLeagueSC})
         }
       );
       alert('Adding player to database...');
       // window.location.reload(false);
     } else {
       axios.get(`/api/player-sc/${player_name}`).then((response) => {
-        const image = 'data:image/jpeg;base64,' + response.data.shotChart
-        console.log(image)
-        this.setState({soloSC: image})
+        const soloSC = 'data:image/jpeg;base64,' + response.data.soloSC
+        const playerLeagueSC = 'data:image/jpeg;base64,' + response.data.playerLeagueSC
+        this.setState({soloSC: soloSC,leagueComp: playerLeagueSC})
         }
       );
     }
-
   }
 
 

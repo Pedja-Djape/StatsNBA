@@ -7,12 +7,12 @@ allPlayers = LeagueLeaders().get_data_frames()[0]
 
 
 
-for i in range(0,208,1):
+for i in range(33,208,1):
     
     playerName = (allPlayers.iloc[i]['PLAYER'])
     newPLayer = Update(playerName)
-    newPLayer.addPlayer()
-    newPLayer.addPlayerSoloSC()
+    # newPLayer.addPlayer()
+    newPLayer.addPlayerLeagueSC()
     print(str(i+1) + ". Added %s" % (playerName))
 
 

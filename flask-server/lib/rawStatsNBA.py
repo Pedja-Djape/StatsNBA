@@ -558,7 +558,7 @@ def effplot(playerFullName):
         else:
             if eDF.loc[i]['SHOT_ZONE_BASIC'] == ldf.loc[i]['SHOT_ZONE_BASIC'] and eDF.loc[i]["SHOT_ZONE_AREA"] == ldf.loc[i]['SHOT_ZONE_AREA'] and eDF.loc[i]["SHOT_ZONE_RANGE"] == ldf.loc[i]["SHOT_ZONE_RANGE"]:
                 rel = (eDF.loc[i]["FG_PCT"] - ldf.loc[i]["FG_PCT"])
-                if rel < 0: 
+                if rel <= 0: 
                     col = myCmapNeg((-rel)**0.25)
                 elif rel > 0: 
                     col = myCmapPos(rel**0.25)
