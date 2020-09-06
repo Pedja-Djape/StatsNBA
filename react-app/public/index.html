@@ -58,22 +58,6 @@
 </head>
 
 <body>
-  <script>
-    var emoji = document.querySelector(".emoji");
-
-    var colorQuery = matchMedia("(prefers-color-scheme: dark)");
-
-    colorQuery.addListener(changeColor);
-
-    function changeColor() {
-      if (colorQuery.matches) {
-      emoji.textContent = "";
-      } else { 
-      emoji.textContent = "";
-      }
-    }
-    changeColor();
-  </script>
   
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

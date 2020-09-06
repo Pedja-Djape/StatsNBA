@@ -1,51 +1,48 @@
-import React, { Component } from 'react';
-//import './App.css';
+import React, { Component, useState,useEffect} from 'react';
 import { Route, NavLink, HashRouter } from "react-router-dom";
-import Start from './pages/Start'; import SPSC from './pages/SPSC'; import TPSC from './pages/TPSC'; import GamePrediction from './pages/GamePrediction';
+import Home from './pages/Home'; import SPSC from './pages/SPSC'; import TPSC from './pages/TPSC'; import GamePrediction from './pages/GamePrediction';
+import websiteHeader from './images/websiteHeader.jpg'
 
 
-
-class App extends Component {
-  render() {
-    return (
-      <HashRouter>
-        <div>
+function App() {
+  
+    return ( 
+        <HashRouter>
+          {/* Header section */}
+          <div className="jumbotron" style={{backgroundImage: `url(${websiteHeader})`,backgroundSize: 'auto 100%',}}></div>  
           <div className="lead d-flex justify-content-center">
-            <h1>Welcome to my NBA STATS SPA</h1>
+            <p className="h2">
+              Welcome to your favorite NBA Stats Page! 
+              <small className="text-muted">  Created By: Pedja Muratovic</small>
+            </p>
           </div>
-          <div className="d-flex justify-content-center">
-            <ul className="header">
-              <li><NavLink exact to="/">Start</NavLink> </li>
-              <li><NavLink to="/SPSC">Single Player Shot Chart</NavLink> </li>
-              <li><NavLink to="/TPSC">Two Player Shot Chart</NavLink> </li>
-              <li><NavLink to="game-pred">Game Predictions</NavLink> </li>
-            </ul>
+
+          {/* Nav Bar Section */}
+          <div className="justify-content-center">
+            <nav className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+              <ul className="navbar-nav">
+                <li className="nav-item"><NavLink className="nav-link" exact to="/">Home</NavLink> </li>
+                <li className="nav-item"><NavLink className="nav-link" to="/SPSC">Single Player Shot Chart</NavLink> </li>
+                <li className="nav-item"><NavLink className="nav-link" to="/TPSC">Two Player Shot Chart</NavLink> </li>
+                <li className="nav-item"><NavLink className="nav-link" to="game-pred">Game Predictions</NavLink> </li>
+              </ul>
+            </nav>
+            <br/>
           </div>
           <div className="content">
-            <Route exact path="/" component={Start} />
+            <Route exact path="/" component={Home} />
             <Route path="/SPSC" component={SPSC} />
             <Route path="/TPSC" component={TPSC} />
             <Route path="/game-pred" component={GamePrediction} />
           </div>
-        </div>
-      </HashRouter>  
+          
+        </HashRouter>
+
     );
-  }
+  
 }
 
-//{
-  /* <div>
-  <h1>Is anyone here?</h1>
-  <enter>
-    <div class='form'>
-      <form action="http://localhost:5000/result" method="GET">
-        Player Name: <input type="text" name='player' />
-        <input type="submit" value="Submit Player" />
-      </form>
-    </div>
 
-  </enter>
-</div> *///}
 
 
 export default App;
