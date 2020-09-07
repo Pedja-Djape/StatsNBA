@@ -1,10 +1,11 @@
 
 from nba_api.stats.static.players import find_players_by_full_name
 from database import init_db,db_session
-from models import individualSC, Player, playerLeagueSC
-from lib.rawStatsNBA import plotPlayerSC, effplot
+from models import individualSC, Player, playerLeagueSC, playerShotStats
+from lib.rawStatsNBA import plotPlayerSC, effplot, genEffPlayerShotDF, getShotsDFs, getCareerShotDF
 import base64
 import os
+
 
 
 class Update:
@@ -46,6 +47,19 @@ class Update:
         db_session.add(newSC)
         db_session.commit()
         os.remove(str(self.image))
+    
+    def addPlayerShotStats(self):
+        pdf = genEffPlayerShotDF(getCareerShotDF(self.name),leagueDF)
+        for i in range(0, len(pdf)):
+            basic = (pdf['SHOT_ZONE_BASIC'].values)[i]
+            area = (pdf['SHOT_ZONE_AREA'].values)[i]
+            rng = (pdf['SHOT_ZONE_RANGE'].values)[i]
+            pct = (pdf['FG_PCT'].values)[i]
+            statsForLoc = playerShotStats(name=self.name,shot_zone_area=area,shot_zone_basic=basic,shot_zone_range=rng,fg_pct=pct)
+            db_session.add(statsForLoc)
+            db_session.commit()
+
+
 
         
 

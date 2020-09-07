@@ -116,6 +116,18 @@ class SPSC extends Component {
       leagueComp: shotGif2,
       submitClicked: false,
       players: [],
+      leagueStats: {
+        shotZoneBasic: Array(18).fill('---'),
+        shotZoneArea: Array(18).fill('---'),
+        shotZoneRange: Array(18).fill('---'),
+        fgPct: Array(18).fill('---')
+      }, 
+      playerStats: {
+        shotZoneBasic: Array(18).fill('---'),
+        shotZoneArea: Array(18).fill('---'),
+        shotZoneRange: Array(18).fill('---'),
+        fgPct: Array(18).fill('---')
+      },
     }
     this.getShotchart = this.getShotchart.bind(this)
   }
@@ -143,40 +155,143 @@ class SPSC extends Component {
       axios.get(`/api/player-sc/${player_name}`).then((response) => {
         const soloSC = 'data:image/jpeg;base64,' + response.data.soloSC
         const playerLeagueSC = 'data:image/jpeg;base64,' + response.data.playerLeagueSC
-        this.setState({soloSC: soloSC,leagueComp: playerLeagueSC})
+        this.setState({soloSC: soloSC,leagueComp: playerLeagueSC,
+          leagueStats: {
+            shotZoneBasic: response.data.ldf[0],
+            shotZoneArea: response.data.ldf[1],
+            shotZoneRange: response.data.ldf[2],
+            fgPct: response.data.ldf[3]
+          },
+          playerStats: {
+            shotZoneBasic: response.data.pdf[0],
+            shotZoneArea: response.data.pdf[1],
+            shotZoneRange: response.data.pdf[2],
+            fgPct: response.data.pdf[3]
+            }
+            })
+        console.log(response.data.pdf)
         }
       );
     }
   }
 
+    getTableRow(type,idx){
+      let t;
+      if (type === 'player') {
+        return (
+          <tr>
+            <td >{this.state.playerStats.shotZoneBasic[idx]}</td><td >{this.state.playerStats.shotZoneArea[idx]}</td>
+            <td >{this.state.playerStats.shotZoneRange[idx]}</td><td >{this.state.playerStats.fgPct[idx]}</td>
+          </tr>  
+        );
+      }
+      else if (type === 'league') {
+        return (
+          <tr>
+            <td >{this.state.leagueStats.shotZoneBasic[idx]}</td><td >{this.state.leagueStats.shotZoneArea[idx]}</td>
+            <td >{this.state.leagueStats.shotZoneRange[idx]}</td><td >{this.state.leagueStats.fgPct[idx]}</td>
+          </tr>  
+        );
+      }
+    }
 
     render() {
+
 
       return (
         <div className="container-fluid">         
 
             <div className='row '>
-              <div className='col-xl-12'>
-                <div className='d-flex justify-content-center'>  
+              <div className='col d-flex justify-content-center'>
                   <Autosuggest options={this.state.players} getSubmit={this.getShotchart}/>
-                </div>
               </div>
             </div>
 
-            <div className='row d-flex justify-content-center' style={{marginTop: '30px'}}>
-              <div className='col-xl-6'>
-                <div className="d-flex justify-content-center">
-                  <img src={this.state.soloSC} style={{maxWidth:"424.7", maxHeight:"370.6"}}/>
-                </div>
+            <div className='row' style={{marginTop: '30px'}}>
+              <div className='col d-flex justify-content-center'>
+                <img src={this.state.soloSC} />
               </div>
-              <div className='col-xl-6'>
-                <div className='d-flex justify-content-center'>
-                  <img src = {this.state.leagueComp} style={{maxWidth:"424.7", maxHeight:"370.6"}}/>
-                </div>
-
+              <div className='col d-flex justify-content-center'>
+                <img src = {this.state.leagueComp}/>
               </div>
             </div>
 
+            <div className='row' style={{marginTop: '30px'}}>
+              <div className='col d-flex justify-content-center'>
+                <h3>Player Career Averages</h3>
+              </div>
+              <div className='col d-flex justify-content-center'>
+                <h3>Current League Averages</h3>
+              </div>
+            </div>
+
+            <div className='row' style={{marginTop: '30px'}}>
+              <div className='col-6 d-flex justify-content-center'>
+                <table class='table'>
+                  <thead className='thead-dark'>
+                    <tr>
+                      <th>Shot Zone Basic</th>
+                      <th>Shot Zone Area</th>
+                      <th>Shot Zone Range</th>
+                      <th>FG %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.getTableRow('player',0)}
+                    {this.getTableRow('player',1)}
+                    {this.getTableRow('player',2)}
+                    {this.getTableRow('player',3)}
+                    {this.getTableRow('player',4)}
+                    {this.getTableRow('player',5)}
+                    {this.getTableRow('player',6)}
+                    {this.getTableRow('player',7)}
+                    {this.getTableRow('player',8)}
+                    {this.getTableRow('player',9)}
+                    {this.getTableRow('player',10)}
+                    {this.getTableRow('player',11)}
+                    {this.getTableRow('player',12)}
+                    {this.getTableRow('player',13)}
+                    {this.getTableRow('player',14)}
+                    {this.getTableRow('player',15)}
+                    {this.getTableRow('player',16)}
+                    {this.getTableRow('player',17)}
+                  </tbody>
+                </table>
+              </div>
+              <div className='col-6 d-flex justify-content-center'>
+                <table className='table'>
+                  <thead className='thead-dark'>
+                    <tr>
+                      <th>Shot Zone Basic</th>
+                      <th>Shot Zone Area</th>
+                      <th>Shot Zone Range</th>
+                      <th>FG %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.getTableRow('league',0)}
+                    {this.getTableRow('league',1)}
+                    {this.getTableRow('league',2)}
+                    {this.getTableRow('league',3)}
+                    {this.getTableRow('league',4)}
+                    {this.getTableRow('league',5)}
+                    {this.getTableRow('league',6)}
+                    {this.getTableRow('league',7)}
+                    {this.getTableRow('league',8)}
+                    {this.getTableRow('league',9)}
+                    {this.getTableRow('league',10)}
+                    {this.getTableRow('league',11)}
+                    {this.getTableRow('league',12)}
+                    {this.getTableRow('league',13)}
+                    {this.getTableRow('league',14)}
+                    {this.getTableRow('league',15)}
+                    {this.getTableRow('league',16)}
+                    {this.getTableRow('league',17)}
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
         </div>
         
       );

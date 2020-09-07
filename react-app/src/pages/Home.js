@@ -15,8 +15,8 @@ class Home extends Component {
             <div className="card box-shadow-hover pointer">
               <img className="card-img-top" src={require('../images/SPSC.jpg')} alt='spscImg'></img>
               <div className="card-body">
-                <h4 className="card-title">How efficient is you favourite player?</h4>
-                <p className="card-text"> Generated spsc via python blah blah </p>
+                <h4 className="card-title">How efficient is your favourite player?</h4>
+                <p className="card-text" style={{fontSize: 'medium'}}>Get individual and league-relative shot charts for over 200+ active players!</p>
                 <a href="#/SPSC" className="btn btn-dark stretched-link d-flex justify-content-center" 
                 onMouseOver={(e) => {e.target.style.background = 'green'; }}
                 

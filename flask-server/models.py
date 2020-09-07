@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, BLOB
+from sqlalchemy import Column, Integer, String, BLOB, Float
 from database import Base
 
 class Player(Base):
@@ -49,6 +49,24 @@ class twoSC(Base):
         self.secondID = secondID
         self.shotChart = shotChart
 """"""
+class playerShotStats(Base):
+    __tablename__ = 'playershotstats'
+
+    name = Column(String(250), nullable=False)
+    shot_zone_basic = Column(String(250), nullable=False)
+    shot_zone_area = Column(String(250), nullable=False)
+    shot_zone_range = Column(String(250), nullable=False)
+    fg_pct = Column(Float,primary_key=True)
+
+
+    def __init__(self, name=None,shot_zone_basic=None,shot_zone_area=None,shot_zone_range=None,fg_pct=None):
+        self.name = name
+        self.shot_zone_basic = shot_zone_basic
+        self.shot_zone_area = shot_zone_area
+        self.shot_zone_range = shot_zone_range
+        self.fg_pct = fg_pct
+
+    
 
 
 

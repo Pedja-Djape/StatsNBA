@@ -413,6 +413,7 @@ def genEffPlayerShotDF(playerDF,leagueDF):
 
 
 
+
 # FROM: https://github.com/savvastj/nbashots
 def draw_court(ax=None, color='black', lw=3, outer_lines=False):
     from matplotlib.patches import Circle, Rectangle, Arc
@@ -535,8 +536,6 @@ def initPlot(plotType):
     return fig,ax,myBar,myCmap
 
 def effplot(playerFullName):
-    # from zoneMap import c3,LR3,LR3,paintC816,paintC8,paintl8,paintl8,cLR3,midC816,midC1624,LRSC1624,LRS1624,LRS816,LRSC1624,LRS1624,LRS816,rA,cLR3, outlineZone
-    # import polytest as zone
 
     fig,ax,myBar,myCmap = initPlot('Player ESC')
     # using random player to get league-averages data frame
@@ -579,7 +578,7 @@ def effplot(playerFullName):
     plt.savefig('C:/Users/pedja/Documents/Programming/StatsNBA/Application/flask-server/lib/images/playerSC/'+ name + '.jpeg')
     plt.close()
     return True
-
+# effplot('luka doncic')
 
 
 
@@ -719,6 +718,8 @@ def playerShotComp(player1,player2):
     # print(name)
     plt.savefig('C:/Users/pedja/Documents/Programming/StatsNBA/Application/flask-server/lib/images/twoPlayerSCs/'+name + '.jpeg',)
     # plt.show()
+    plt.close()
+
 
 
 

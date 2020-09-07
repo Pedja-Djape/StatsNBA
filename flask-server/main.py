@@ -5,7 +5,7 @@ from nba_api.stats.static.players import find_players_by_full_name
 from nba_api.stats.static.teams import find_team_by_abbreviation
 
 from database import db_session
-from models import Player, individualSC, playerLeagueSC
+from models import Player, individualSC, playerLeagueSC, playerShotStats
 from dbUpdate import Update
 
 app = Flask('__name__')
@@ -57,7 +57,21 @@ def getPlayerSC(player_name):
             add.addPlayer(); add.addPlayerSC(); add.addPlayerLeagueSC();
             soloSC = ((individualSC.query.filter(individualSC.name == pName).first()).shotChart).decode('utf-8')
             compSC = ((playerLeagueSC.query.filter(playerLeagueSC.name == pName).first()).shotChart).decode('utf-8')
-        response = jsonify(soloSC=soloSC,playerLeagueSC=compSC,name = pName)
+        leagueTable = (playerShotStats.query.filter(playerShotStats.name == 'League').all())
+        playerTable = (playerShotStats.query.filter(playerShotStats.name == pName).all())
+        Lszb, Lsza, Lszr, Lfgpct = [],[],[],[]
+        Pszb, Psza, Pszr, Pfgpct = [],[],[],[]
+        for i in range(0,len(leagueTable)):
+            Lszb += [leagueTable[i].shot_zone_basic]; Pszb += [playerTable[i].shot_zone_basic]
+            Lsza += [leagueTable[i].shot_zone_area]; Psza += [playerTable[i].shot_zone_area]
+            Lszr += [leagueTable[i].shot_zone_range]; Pszr += [playerTable[i].shot_zone_range]
+            Lfgpct += [leagueTable[i].fg_pct]; Pfgpct += [playerTable[i].fg_pct]
+        
+        pdf = [Pszb,Psza,Pszr,Pfgpct]; ldf = [Lszb,Lsza,Lszr,Lfgpct]
+        
+        
+        # print(leagueTable)
+        response = jsonify(soloSC=soloSC,playerLeagueSC=compSC,name = pName,pdf=pdf,ldf=ldf)
         
     return response
 
