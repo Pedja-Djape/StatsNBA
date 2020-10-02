@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Dropdown from './Components/Dropdown'
 
 const teams = [{name: 'ATL', id: 0}, {name: 'BOS', id: 1}, {name: 'CLE', id: 2}, {name: 'NOP', id: 3},
 {name: 'CHI', id: 4}, {name: 'DAL', id: 5}, {name: 'DEN', id: 6}, {name: 'GSW', id: 7},
@@ -9,42 +10,6 @@ const teams = [{name: 'ATL', id: 0}, {name: 'BOS', id: 1}, {name: 'CLE', id: 2},
 {name: 'POR', id: 20}, {name: 'SAC', id: 21}, {name: 'SAS', id: 22}, {name: 'OKC', id: 23},
 {name: 'TOR', id: 24}, {name: 'UTA', id: 25}, {name: 'MEM', id: 26}, {name: 'WAS', id: 27},
 {name: 'DET', id: 28}, {name: 'CHA', id: 29}];
-
-class Dropdown extends Component {
-  constructor(props) {
-    super(props);
-  
-    this.state = {
-      headerTitle: this.props.title,
-      teams: this.props.teams,
-      buttonID: this.props.buttonID,
-
-    };
-  }
-
-  render() {
-    return (
-      <div className="btn-group w-100 d-flex">
-        <button type="button" className="btn-dark w-100 dropdown-toggle" data-toggle="dropdown">
-          {this.state.headerTitle}
-        </button>
-        <ul className="dropdown-menu pre-scrollable w-100" role="menu">
-          {this.state.teams.map((team) => {
-            return (
-              <li>
-                <a href="#/game-pred" className="dropdown-item d-flex justify-content-center" onClick={() => {
-                  this.props.handleTeam(team.name,this.state.buttonID);
-                  this.setState({headerTitle: team.name});
-                }}>{team.name}</a>
-              </li>
-            );
-          })}
-        </ul>
-
-      </div>
-    );
-  }
-}
 
 class GamePrediction extends Component {
   constructor(props){
@@ -65,7 +30,7 @@ class GamePrediction extends Component {
       alert('You must select 2 different teams! Teams have been cleared!')
       this.state.teams[0] = null; this.state.teams[1] = null;
       this.setState({teams: this.state.teams})
-      window.location.reload(false)
+      // window.location.reload(false)
     }
     console.log(this.state)
   } 
@@ -91,31 +56,50 @@ class GamePrediction extends Component {
 
   render() {
     return (
-      <div>
-        <div className="button-group w-100 d-flex" >
-          <Dropdown buttonID={0} title="Select the Home Team!" teams={teams} handleTeam={this.handleTeamSelection} /> 
-          <Dropdown buttonID={1} title="Select the Away Team" teams={teams} handleTeam={this.handleTeamSelection} /> 
+      <React.Fragment>
+        <div className='container-fluid'>
+
+          <div className='row'>
+            <div className='col d-flex justify-content-center'>
+              <Dropdown buttonID={0} page='#/game-pred' title="Select the Home Team!" options={teams} handleOpt={this.handleTeamSelection} /> 
+              <Dropdown buttonID={1} page='#/game-pred' title="Select the Away Team!" options={teams} handleOpt={this.handleTeamSelection} /> 
+            </div>
+          </div>
+
+          <div className='row' style={{marginTop: '30px'}}>
+            <div className='col d-flex justify-content-center'>
+              <p>You have selected the following Teams:</p> 
+            </div>
+          </div>
+
+          <div className='row' style={{marginTop: '30px'}}>
+            <div className='col d-flex justify-content-center'>
+              <ol className="list-group-flush">
+                {this.state.teams.map( (team) => 
+                    <li>{team}</li>
+                )}
+              </ol>
+            </div>
+          </div>
+
+          <div className='row' style={{marginTop: '30px'}}>
+            <div className='col d-flex justify-content-center'>
+            <h3> Home: {this.state.info.home.full_name} </h3>
+            </div>
+            <div className='col d-flex justify-content-center'>
+              <h3>Away: {this.state.info.away.full_name}</h3>
+            </div>
+          </div>
+
+          <div className='row' style={{marginTop: '30px'}}>
+            <div className='col d-flex justify-content-center'>
+              <button type="button" className="btn btn-dark btn-lg" onClick={this.getWinner}>Get Winner!</button>
+            </div>
+          </div>
+
+
         </div>
-        <div className="d-flex justify-content-center">
-          <p>You have selected the following Teams:</p> 
-        </div>
-        <div className="d-flex justify-content-center">
-          <ol className="list-group-flush">
-            {this.state.teams.map( (team) => 
-                <li>
-                  {team}
-                </li>
-            )}
-          </ol>
-        </div>  
-        <div className="d-flex justify-content-center"> 
-          <button type="button" className="btn btn-light btn-dark" onClick={this.getWinner}>
-            Get Winner!
-          </button>
-          <p> Home: {this.state.info.home.full_name} and Away: {this.state.info.away.full_name}</p>
-        </div>
-        
-      </div>
+      </React.Fragment>
 
 
     )}

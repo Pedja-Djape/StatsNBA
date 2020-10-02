@@ -73,7 +73,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "start-flask-api": "cd .. && cd flask-server && python main.py"
+    "start-flask-api": "cd .. && cd flaskServer && python main.py"
   },
   "eslintConfig": {
     "extends": "react-app"

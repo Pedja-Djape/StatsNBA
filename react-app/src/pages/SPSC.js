@@ -155,6 +155,7 @@ class SPSC extends Component {
       axios.get(`/api/player-sc/${player_name}`).then((response) => {
         const soloSC = 'data:image/jpeg;base64,' + response.data.soloSC
         const playerLeagueSC = 'data:image/jpeg;base64,' + response.data.playerLeagueSC
+        
         this.setState({soloSC: soloSC,leagueComp: playerLeagueSC,
           leagueStats: {
             shotZoneBasic: response.data.ldf[0],
@@ -176,7 +177,6 @@ class SPSC extends Component {
   }
 
     getTableRow(type,idx){
-      let t;
       if (type === 'player') {
         return (
           <tr>
@@ -199,8 +199,7 @@ class SPSC extends Component {
 
 
       return (
-        <div className="container-fluid">         
-
+        <div className="container-fluid"> 
             <div className='row '>
               <div className='col d-flex justify-content-center'>
                   <Autosuggest options={this.state.players} getSubmit={this.getShotchart}/>
