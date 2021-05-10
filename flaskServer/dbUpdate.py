@@ -87,7 +87,7 @@ class Update:
                 statsForLoc = playerShotStats(name=self.name,shot_zone_area=area,shot_zone_basic=basic,shot_zone_range=rng,fg_pct=pct)
                 db_session.add(statsForLoc)
                 db_session.commit()
-    
+
     def addGametoLog(self,teamID):
         games = LeagueGameFinder(team_id_nullable=teamID).get_data_frames()[0]
         idxToDrop = [None]*3
@@ -108,8 +108,8 @@ class Update:
                 found = True
         games = games.iloc[0:idxToDrop[i][1]+1]
         games = games.reindex(index=games.index[::-1])
-        games = games.iloc[0:20]
-        games.index = arange(0,20,1)
+        games = games.iloc[0:40]
+        games.index = arange(0,40,1)
         # print(games)
         for i in range(0,len(games)):
             team = (games['TEAM_NAME'].values)[i]

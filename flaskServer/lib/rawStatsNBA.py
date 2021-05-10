@@ -1,4 +1,3 @@
-# import mysql.connector as mysql
 import numpy as np 
 import pandas as pd 
 import matplotlib as mpl 
@@ -12,18 +11,6 @@ import matplotlib.pyplot as plt
 # from . import polytest as zone
 
 
-
-
-
-# db = mysql.connect(
-#     host = "localhost",
-#     user = 'root',
-#     password = ,
-#     database = "nba" 
-# )# point to 'nba' database 
-
-# # creating an instance of 'cursor' class to execute the SQL queries 
-# mycursor = db.cursor()
 
 from nba_api.stats.static.players import find_players_by_full_name
 from nba_api.stats.static.teams import *
@@ -720,7 +707,7 @@ def playerShotComp(player1,player2):
     plt.savefig('C:/Users/pedja/Documents/Programming/StatsNBA/Application/flask-server/lib/images/twoPlayerSCs/'+name + '.jpeg',)
     # plt.show()
     plt.close()
-# playerShotComp('luka doncic','trae young')
+
 
 
 

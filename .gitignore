@@ -1,2 +1,4 @@
 node_modules/
 __pychache__/
+flaskServer/ML/
+flaskServer/static/
